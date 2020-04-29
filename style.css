@@ -18,12 +18,12 @@ main {
 .lightbox {
     position: fixed;
     z-index: 1;
-   background-color: pink;
-   
+    background-color: pink;
 }
 
 img {
     max-width: 100%;
+    
 }
 
 .hidden {
