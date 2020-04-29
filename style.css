@@ -15,6 +15,17 @@ main {
     margin-top: 1rem;
 }
 
+.lightbox {
+    /* position: fixed; */
+    z-index: 1;
+   background-color: pink;
+   
+}
+
+.hidden {
+    display: none;
+}
+
 .imageContainer {
     display: grid;
     grid-template-columns: repeat(1, 1fr);

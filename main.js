@@ -5,6 +5,11 @@ const SEARCH_BOX = document.querySelector(".search-box");
 const VIEW_FAVORITES_BUTTON = document.querySelector(".viewFavorites");
 const PREVIOUS_BUTTON = document.querySelector(".previousButton");
 const NEXT_BUTTON = document.querySelector(".nextButton");
+const LIGHTBOX = document.querySelector(".lightbox");
+const LIGHTBOX_IMAGE = document.querySelector(".lightbox-image");
+const LIGHTBOX_ADD_FAVORITE_BUTTON = document.querySelector(".add-favorite");
+const LIGHTBOX_DOWNLOAD_IMAGE_BUTTON = document.querySelector(".download-image");
+const LIGHTBOX_CLOSE_BUTTON = document.querySelector(".close-lightbox")
 
 
 // local data
@@ -41,6 +46,8 @@ function renderImages(container, images) {
     let article = document.createElement("article");
     let img = document.createElement("img");
     img.addEventListener("click", () => imageClickHandler(image));
+    // Vad är skillnaden???
+    // img.addEventListener("click", imageClickHandler(image));
     img.src = image.urls.small;
     article.append(img);
     container.append(article);
@@ -73,14 +80,30 @@ function nextButtonClickHandler() {
 }
 
 function imageClickHandler(image) {
-  alert(image.user.name);
+  LIGHTBOX_IMAGE.src = image.urls.regular;
+  LIGHTBOX.classList.toggle("hidden");
+}
+
+function addFavoritesClickHandler() {
+  alert("add favorites click handler called");
+}
+
+function downloadImageClickHandler() {
+  alert("download image click handler called");
+}
+
+function closeLightBoxClickHandler() {
+  LIGHTBOX.classList.toggle("hidden");
 }
 
 function initiateListeners() {
    SUBMIT_BUTTON.addEventListener("click", submitButtonClickHandler);
    VIEW_FAVORITES_BUTTON.addEventListener("click", viewFavoritesButtonClickHandler);
    PREVIOUS_BUTTON.addEventListener("click", previousButtonClickHandler);
-   NEXT_BUTTON.addEventListener("click",nextButtonClickHandler);
+   NEXT_BUTTON.addEventListener("click", nextButtonClickHandler);
+   LIGHTBOX_ADD_FAVORITE_BUTTON.addEventListener("click", addFavoritesClickHandler);
+   LIGHTBOX_DOWNLOAD_IMAGE_BUTTON.addEventListener("click", downloadImageClickHandler);
+   LIGHTBOX_CLOSE_BUTTON.addEventListener("click", closeLightBoxClickHandler);
 }
 
 function run() {
