@@ -6,17 +6,18 @@ const VIEW_FAVORITES_BUTTON = document.querySelector(".viewFavorites");
 const PREVIOUS_BUTTON = document.querySelector(".previousButton");
 const NEXT_BUTTON = document.querySelector(".nextButton");
 
+
 // local data
 let currentImages  = []
 let currentIndex = 0
 let totalImages;
 let totalPages;
-let currentPage = 1;
-let currentSearchValue;
 
 // API info
+let EXAMPLE_URL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
+let currentSearchValue;
+let currentPage = 1;
 const ACCESS_KEY = `UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M`;
-const EXAMPLE_URL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
 
 // fetch function
 async function fetchResults(searchValue, page, accesKey) {
@@ -30,6 +31,7 @@ async function fetchResults(searchValue, page, accesKey) {
 // render funtions
 async function listImages() {
   let images = await fetchResults(currentSearchValue, currentPage, ACCESS_KEY);
+  console.log(images);
   renderImages(IMAGE_CONTAINER, images);
 }
 
@@ -38,6 +40,7 @@ function renderImages(container, images) {
   for(let image of images) {
     let article = document.createElement("article");
     let img = document.createElement("img");
+    img.addEventListener("click", () => imageClickHandler(image));
     img.src = image.urls.small;
     article.append(img);
     container.append(article);
@@ -52,17 +55,25 @@ function submitButtonClickHandler() {
 }
 
 function viewFavoritesButtonClickHandler() {
-   alert("fav button clicked");
+  alert("view fav button clicked");
 }
-
 
 function previousButtonClickHandler() {
-   alert("previous button clicked");
+  if (currentPage > 1) {
+    currentPage--;
+    listImages();
+  }
 }
 
-
 function nextButtonClickHandler() {
-   alert("next button clicked");
+  if (currentPage < totalPages) {
+    currentPage++;
+    listImages();
+  }
+}
+
+function imageClickHandler(image) {
+  alert(image.user.name);
 }
 
 function initiateListeners() {
