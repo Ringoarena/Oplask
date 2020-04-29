@@ -20,37 +20,35 @@ const EXAMPLE_URL = "https://api.unsplash.com/search/photos/?query=book&page=1&c
 
 // fetch function
 async function fetchResults(searchValue, page, accesKey) {
-   let url = `https://api.unsplash.com/search/photos/?query=${searchValue}&?page=${page}&?client_id=${accesKey}` 
-   let response = await fetch(url);
-   let data = await response.json();
-   totalPages = data.total_pages;
-   return data.results;
+  let url = `https://api.unsplash.com/search/photos/?query=${searchValue}&page=${page}&client_id=${accesKey}` 
+  let response = await fetch(url);
+  let data = await response.json();
+  totalPages = data.total_pages;
+  return data.results;
 }
 
 // render funtions
-async function listImages(searchValue) {
-   let images = await fetchResults(searchValue, currentPage, ACCESS_KEY);
-   renderImages(IMAGE_CONTAINER, images);
+async function listImages() {
+  let images = await fetchResults(currentSearchValue, currentPage, ACCESS_KEY);
+  renderImages(IMAGE_CONTAINER, images);
 }
 
 function renderImages(container, images) {
-   container.innerHTML = "";
-   for(let image of images) {
-      let article = document.createElement("article");
-      let img = document.createElement("img");
-      img.src = image.urls.small;
-      article.append(img);
-      container.append(article);
-   }
+  container.innerHTML = "";
+  for(let image of images) {
+    let article = document.createElement("article");
+    let img = document.createElement("img");
+    img.src = image.urls.small;
+    article.append(img);
+    container.append(article);
+  }
 }
 
 // event callback functions
 function submitButtonClickHandler() {
-   currentSearchValue = SEARCH_BOX.value;
-   alert(currentSearchValue);
-   // SEARCH_BOX.value = "";
-   // currentPage = 1;
-   // listImages(currentSearchValue);
+  currentSearchValue = SEARCH_BOX.value;
+  currentPage = 1;
+  listImages();
 }
 
 function viewFavoritesButtonClickHandler() {
