@@ -23,20 +23,21 @@ async function fetchResults(searchWord) {
     return data.results;
 }
 
-function renderImages(results) {
+function renderImages(images) {
+
+
   let returStr = `
       <div class="lightBoxImage hidden">
-          <img src="${results[currentIndex].urls.regular}" />
-          <p>${results[currentIndex].user.name}</p>
+          <img src="${images[currentIndex].urls.regular}" />
+          <p>${images[currentIndex].user.name}</p>
           <button class="addFav">Add to favorites</button>
           <button class="downloadImage">Download</button>
       </div>
       <section>
   `
   
-    for (let result of results) {
+    for (let result of images) {
       returStr += renderImage(result)
-      console.log(result.urls.small)
     }
 
     returStr += `</section>`
@@ -46,7 +47,7 @@ function renderImages(results) {
 
 function postRenderedImages(images, container) {
     container.innerHTML = "";
-    container.innerHTML = renderImages(container, searchResponse.results)
+    container.innerHTML = renderImages(images)
 }
 
 function initiateListeners() {
