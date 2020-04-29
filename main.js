@@ -2,39 +2,80 @@
 const IMAGE_CONTAINER = document.querySelector(".imageContainer");
 const SUBMIT_BUTTON = document.querySelector(".submit");
 const SEARCH_BOX = document.querySelector(".search-box");
-const FAVORITES_BUTTON = document.querySelector(".favorites");
+const VIEW_FAVORITES_BUTTON = document.querySelector(".viewFavorites");
+const PREVIOUS_BUTTON = document.querySelector(".previousButton");
+const NEXT_BUTTON = document.querySelector(".nextButton");
 
 // local data
 let currentImages  = []
 let currentIndex = 0
+let totalImages;
+let totalPages;
+let currentPage = 1;
+let currentSearchValue;
+
+// API info
+const ACCESS_KEY = `UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M`;
+const EXAMPLE_URL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
 
 // fetch function
-async function fetchResults(searchWord, page, accesKey) {
-  let getURL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
-  let response = await fetch(url+searchword);
-  let data = await response.json();
-  return data.results;
+async function fetchResults(searchValue, page, accesKey) {
+   let url = `https://api.unsplash.com/search/photos/?query=${searchValue}&?page=${page}&?client_id=${accesKey}` 
+   let response = await fetch(url);
+   let data = await response.json();
+   totalPages = data.total_pages;
+   return data.results;
 }
 
 // render funtions
+async function listImages(searchValue) {
+   let images = await fetchResults(searchValue, currentPage, ACCESS_KEY);
+   renderImages(IMAGE_CONTAINER, images);
+}
+
 function renderImages(container, images) {
-  container.innerHTML = "";
-  for(let image of images) {
-    let article = document.createElement("article");
-    let img = document.createElement("img");
-    img.src = image.urls.small;
-    article.append(img);
-    container.append(article);
-  }
+   container.innerHTML = "";
+   for(let image of images) {
+      let article = document.createElement("article");
+      let img = document.createElement("img");
+      img.src = image.urls.small;
+      article.append(img);
+      container.append(article);
+   }
+}
+
+// event callback functions
+function submitButtonClickHandler() {
+   currentSearchValue = SEARCH_BOX.value;
+   alert(currentSearchValue);
+   // SEARCH_BOX.value = "";
+   // currentPage = 1;
+   // listImages(currentSearchValue);
+}
+
+function viewFavoritesButtonClickHandler() {
+   alert("fav button clicked");
+}
+
+
+function previousButtonClickHandler() {
+   alert("previous button clicked");
+}
+
+
+function nextButtonClickHandler() {
+   alert("next button clicked");
 }
 
 function initiateListeners() {
-
+   SUBMIT_BUTTON.addEventListener("click", submitButtonClickHandler);
+   VIEW_FAVORITES_BUTTON.addEventListener("click", viewFavoritesButtonClickHandler);
+   PREVIOUS_BUTTON.addEventListener("click", previousButtonClickHandler);
+   NEXT_BUTTON.addEventListener("click",nextButtonClickHandler);
 }
 
 function run() {
     initiateListeners()
-    // andra saker som man ska göra i starten
 }
 run();
 
