@@ -13,10 +13,10 @@ const LIGHTBOX_CLOSE_BUTTON = document.querySelector(".close-lightbox")
 
 
 // local data
-let currentImages  = []
-let currentIndex = 0
+let currentImage;
 let totalImages;
 let totalPages;
+let favorites = []
 
 // API info
 let EXAMPLE_URL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
@@ -80,12 +80,22 @@ function nextButtonClickHandler() {
 }
 
 function imageClickHandler(image) {
+  currentImage = image;
   LIGHTBOX_IMAGE.src = image.urls.regular;
   LIGHTBOX.classList.toggle("hidden");
 }
 
 function addFavoritesClickHandler() {
-  alert("add favorites click handler called");
+  // alert("add favorites click handler called");
+
+  // Retrieve favorites
+  favorites = JSON.parse(localStorage["favorites"]);
+  // Remove favorites from local storage
+  localStorage.removeItem["favorites"]
+  // Modify favorites
+  favorites.push(image)
+  // Save favorites
+  localStorage["favorites"] = JSON.stringify(favorites);
 }
 
 function downloadImageClickHandler() {
@@ -108,10 +118,7 @@ function initiateListeners() {
 
 function run() {
     initiateListeners()
-}
-run();
-
-let searchResponse = {
+    favorites = JSON.parse(localStorage["favorites"]);
     "total": 133,
     "total_pages": 7,
     "results": [
