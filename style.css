@@ -2,11 +2,11 @@ header {
     background-color: coral;
 }
 
-header form {
+header > form {
     display: flex;
 }
 
-header form input {
+header > form > input {
     flex-grow: 1;
 }
 
@@ -15,7 +15,7 @@ main {
     margin-top: 1rem;
 }
 
-main section {
+.imageContainer {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 }

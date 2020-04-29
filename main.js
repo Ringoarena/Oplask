@@ -1,68 +1,42 @@
-const IMAGE_CONTAINER = document.querySelector("main");
+// get references to DOM elements
+const IMAGE_CONTAINER = document.querySelector(".imageContainer");
 const SUBMIT_BUTTON = document.querySelector(".submit");
-const SEARCH_FIELD = document.querySelector(".search-box");
+const SEARCH_BOX = document.querySelector(".search-box");
 const FAVORITES_BUTTON = document.querySelector(".favorites");
 
+// local data
 let currentImages  = []
 let currentIndex = 0
 
-function renderImage(result) {
-    console.log("Hej");
-
-    return `
-        <article>
-            <img src="${result.urls.small}" "/>
-        </article>
-    `
-
+// fetch function
+async function fetchResults(searchWord, page, accesKey) {
+  let getURL = "https://api.unsplash.com/search/photos/?query=book&page=1&client_id=UwbX5zH4F3o2peiezQLbWHxF09ixF5pJBId4Uccs47M";
+  let response = await fetch(url+searchword);
+  let data = await response.json();
+  return data.results;
 }
 
-async function fetchResults(searchWord) {
-    let response = await fetch(url+searchword);
-    let data = await response.json();
-    return data.results;
-}
-
-function renderImages(images) {
-
-
-  let returStr = `
-      <div class="lightBoxImage hidden">
-          <img src="${images[currentIndex].urls.regular}" />
-          <p>${images[currentIndex].user.name}</p>
-          <button class="addFav">Add to favorites</button>
-          <button class="downloadImage">Download</button>
-      </div>
-      <section>
-  `
-  
-    for (let result of images) {
-      returStr += renderImage(result)
-    }
-
-    returStr += `</section>`
-
-    return returStr
-}
-
-function postRenderedImages(images, container) {
-    container.innerHTML = "";
-    container.innerHTML = renderImages(images)
+// render funtions
+function renderImages(container, images) {
+  container.innerHTML = "";
+  for(let image of images) {
+    let article = document.createElement("article");
+    let img = document.createElement("img");
+    img.src = image.urls.small;
+    article.append(img);
+    container.append(article);
+  }
 }
 
 function initiateListeners() {
-    IMAGE_CONTAINER.addEventListener("click",someFunction());
+
 }
 
 function run() {
     initiateListeners()
     // andra saker som man ska göra i starten
 }
-
-
-
-
-
+run();
 
 let searchResponse = {
     "total": 133,
@@ -203,5 +177,3 @@ let searchResponse = {
       // more photos ...
     ]
 }
-
-postRenderedImages(searchResponse.results, IMAGE_CONTAINER)
