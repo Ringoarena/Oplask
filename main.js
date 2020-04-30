@@ -1,6 +1,6 @@
 // get references to DOM elements
 const IMAGE_CONTAINER = document.querySelector(".imageContainer");
-const SUBMIT_BUTTON = document.querySelector(".submit");
+const SUBMIT_FORM = document.querySelector("form");
 const SEARCH_BOX = document.querySelector(".search-box");
 const VIEW_FAVORITES_BUTTON = document.querySelector(".viewFavorites");
 const CLEAR_FAVORITES_BUTTON = document.querySelector(".clearFavorites");
@@ -132,9 +132,9 @@ function loadDatabase() {
 }
 
 function initiateListeners() {
-   SUBMIT_BUTTON.addEventListener("click", submitButtonClickHandler);
+   SUBMIT_FORM.addEventListener("submit", submitButtonClickHandler);
    VIEW_FAVORITES_BUTTON.addEventListener("click", viewFavoritesButtonClickHandler);
-   CLEAR_FAVORITES_BUTTON.addEventListener("click", clearFavoritesButtonClickHandler)
+   CLEAR_FAVORITES_BUTTON.addEventListener("click", clearFavoritesButtonClickHandler);
    PREVIOUS_BUTTON.addEventListener("click", previousButtonClickHandler);
    NEXT_BUTTON.addEventListener("click", nextButtonClickHandler);
    LIGHTBOX_ADD_FAVORITE_BUTTON.addEventListener("click", addFavoritesClickHandler);
