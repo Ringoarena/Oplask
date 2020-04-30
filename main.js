@@ -61,7 +61,8 @@ async function downloadImage(image) {
 }
 
 // event callback functions
-function submitButtonClickHandler() {
+function submitButtonClickHandler(event) {
+  event.preventDefault();
   currentSearchValue = SEARCH_BOX.value;
   currentPage = 1;
   listImages();
@@ -124,7 +125,7 @@ function closeLightBoxClickHandler() {
 
 function loadDatabase() {
   if (localStorage.getItem('favorites') != null) {
-
+    console.log("loaded")
     // Retrieve favorites
     favorites = JSON.parse(localStorage.getItem('favorites'));
   }
