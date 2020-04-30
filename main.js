@@ -9,8 +9,9 @@ const NEXT_BUTTON = document.querySelector(".nextButton");
 const LIGHTBOX = document.querySelector(".lightbox");
 const LIGHTBOX_IMAGE = document.querySelector(".lightbox-image");
 const LIGHTBOX_ADD_FAVORITE_BUTTON = document.querySelector(".add-favorite");
-const LIGHTBOX_DOWNLOAD_IMAGE_BUTTON = document.querySelector(".download-image");
+const LIGHTBOX_DOWNLOAD_IMAGE_LINK = document.querySelector(".download-image-link");
 const LIGHTBOX_CLOSE_BUTTON = document.querySelector(".close-lightbox")
+const LIGHTBOX_AUTHOR = document.querySelector(".author");
 
 // local data
 let currentImage;
@@ -56,7 +57,7 @@ function renderImages(container, images) {
 
 // download functions
 async function downloadImage(image) {
-  download(image.links.download);
+  
 }
 
 // event callback functions
@@ -75,7 +76,6 @@ function clearFavoritesButtonClickHandler() {
   localStorage.clear()
   favorites = []
   renderImages(IMAGE_CONTAINER, favorites)
-  alert("Clear favorites click handler called");
 }
 
 function previousButtonClickHandler() {
@@ -94,7 +94,9 @@ function nextButtonClickHandler() {
 
 function imageClickHandler(image) {
   currentImage = image;
+  LIGHTBOX_DOWNLOAD_IMAGE_LINK.href = image.links.download + "?force=true";
   LIGHTBOX_IMAGE.src = image.urls.regular;
+  LIGHTBOX_AUTHOR.innerText = image.user.name;
   LIGHTBOX.classList.toggle("hidden");
 }
 
@@ -135,7 +137,7 @@ function initiateListeners() {
    PREVIOUS_BUTTON.addEventListener("click", previousButtonClickHandler);
    NEXT_BUTTON.addEventListener("click", nextButtonClickHandler);
    LIGHTBOX_ADD_FAVORITE_BUTTON.addEventListener("click", addFavoritesClickHandler);
-   LIGHTBOX_DOWNLOAD_IMAGE_BUTTON.addEventListener("click", downloadImageClickHandler);
+   LIGHTBOX_DOWNLOAD_IMAGE_LINK.addEventListener("click", downloadImageClickHandler);
    LIGHTBOX_CLOSE_BUTTON.addEventListener("click", closeLightBoxClickHandler);
 }
 
